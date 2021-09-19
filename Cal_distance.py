@@ -3,7 +3,7 @@ import re
 from numpy import *
 
 
-path = r"M:\20210117_HF\DSS\MB8_con_output\reports"  # 搜索fasta 和 PDB 文件所在目录
+path = r"G:\msData\20200419\GST\DSS\output\reports"  # 搜索fasta 和 PDB 文件所在目录
 XL_sites_list = ["K"]#, "D", 'E'] # 交联位点
 
 
@@ -341,3 +341,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print("Done")
