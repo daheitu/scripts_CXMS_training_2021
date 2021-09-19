@@ -303,6 +303,7 @@ def get_pdb_distance(cross_link_pair, chain2protName_dic,
 
 def main():
     B = open("xlink_distance.txt", 'w')
+    B.write("link-site\ttotal_spec\tbest_Evaule\tbest_svm\tmin_distance\n")
     file_list = os.listdir(os.getcwd())
     for fl in file_list:
         if fl[-6:] == ".fasta":
