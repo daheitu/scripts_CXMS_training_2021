@@ -4,10 +4,10 @@ from numpy import *
 
 
 path = r"G:\msData\20200419\GST\DSS\output\reports"  # 搜索fasta 和 PDB 文件所在目录
-XL_sites_list = ["K"]#, "D", 'E'] # 交联位点
+XL_sites_list = ["K"]  # 交联位点, 如果有多个交联位点，请用,隔开，如["K", "D", "E"]
 
 
-###################Don't change the following line#####################
+###################Don't change the following lines#####################
 os.chdir(path)
 # linksiteFile = "YLCao_DSS_BS3.csv" # site文件
 for fl in os.listdir("./"):
@@ -284,17 +284,24 @@ def get_pdb_distance(cross_link_pair, chain2protName_dic,
                 selec1 = " /" + pdb_name + "//" + chain1 + "/" + str(site1) + "/"+"CA"
                 selec2 = " /" + pdb_name + "//" + chain2 + "/" + str(site2) + "/"+"CA"
                 pym_cmd = obj_name + "," + selec1 + "," + selec2
-                all_dist_dic[site_1_chain[i], site_2_chain[j]] = [str(dis_pdb), pym_cmd]
+                all_dist_dic[site_1_chain[i], site_2_chain[j]] = (dis_pdb, pym_cmd)
                 all_distance.append(dis_pdb)
                 wlist.extend([dis_pdb, pym_cmd])
         
-        if len(all_distance) == 1:
-            min_dis = round(min(all_distance), 2)
-        else:
-            while min(all_distance) == 0.0:
-                all_distance.remove(0.0)
-            min_dis = round(min(all_distance), 2)
+        distances = list(all_dist_dic.values())
+        distances_delete0 = [x for x in distances if x[0] != 0.0]
+        distances_delete0_sorted = sorted(distances_delete0, key=lambda x:x[0])
+        min_dis = round(distances_delete0_sorted[0][0], 2)
+        min_dis_pym = distances_delete0_sorted[0][1]
+        # if len(all_distance) == 1:
+        #     min_dis = round(min(all_distance), 2)
+        # else:
+        #     while min(all_distance) == 0.0:
+        #         all_distance.remove(0.0)
+        #     min_dis = round(min(all_distance), 2)
+
         wlist.insert(1, min_dis)
+        wlist.insert(2, min_dis_pym)
     else:
         wlist.append("no stru")
     
