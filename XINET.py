@@ -6,7 +6,7 @@ os.chdir(wk_dir)
 
 def get_input_file():
     for fl in os.listdir(wk_dir):
-        if fl.endswith("v5.csv"):
+        if fl.endswith("v5.csv") or fl == "pLink_summary.csv":
             return fl
     print("Wrong")
 
